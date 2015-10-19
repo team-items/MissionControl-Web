@@ -2,7 +2,11 @@ function setSliderText(evt) {
     evt.target.parentElement.parentElement.getElementsByClassName("value")[0].innerHTML = evt.target.value;
 }
 
-
+function setValue(evt) {
+    //save value at an appropriate location
+    alert(evt.target.parentElement.parentElement.getElementsByTagName("input")[0].value);
+    //evt.target.parentElement.parentElement.getElementsByClassName("value")[0].innerHTML = evt.target.value;
+}
 
 function init()
 {
@@ -22,7 +26,16 @@ function init()
     for (i = 0; i < servos.length; i++) {
         servos[i].addEventListener("input", setSliderText, false);
     }
-
+    
+    var motors = document.getElementsByClassName("motorsContainer");
+    for (i = 0; i < motors.length; i++) {
+        motors[i].addEventListener("input", setSliderText, false);
+    }
+    
+    var updateButtons = document.getElementsByClassName("updateButton");
+    for (i = 0; i < updateButtons.length; i++) {
+        updateButtons[i].addEventListener("click", setValue, false);
+    }
 }
 
 init();
