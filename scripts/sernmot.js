@@ -1,15 +1,8 @@
-function setSliderText(val, ind) {
-    "use strict";
-    var values = document.getElementsByClassName("value");
-    values[ind].textContent = val;
+function setSliderText(evt) {
+    evt.target.parentElement.parentElement.getElementsByClassName("value")[0].innerHTML = evt.target.value;
 }
 
 
-var servos = document.getElementsByClassName("servosSlider");
-var i;
-for (i = 0; i < servos.length; i++) {
-    servos[i].addEventListener("input", function(){setSliderText(servos[i].value, i)});
-}
 
 function init()
 {
@@ -24,6 +17,12 @@ function init()
                                     document.getElementById("motorsPage").style.display = 'none';
                                     document.getElementById("sensorsPage").style.display = 'block';
     }); 
+    
+    var servos = document.getElementsByClassName("servosContainer");
+    for (i = 0; i < servos.length; i++) {
+        servos[i].addEventListener("input", setSliderText, false);
+    }
+
 }
 
 init();
