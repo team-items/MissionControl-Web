@@ -1,0 +1,92 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    color: #4a4a4a
+}
+
+#homeIcon {
+    width: 60px;
+    float: left;
+    margin: 5px;
+}
+
+nav {
+    background-color: #F43254;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+#linkList {
+    margin:0px;
+    padding: 0px;
+    margin-left: 30px;
+    margin-top: 23px;
+    float: left;
+}
+
+.navElement {
+    display: inline-block;
+}
+
+.navFont {
+    font-family: sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+    color: white;
+}
+
+.listElement {
+    margin-right: 30px;
+    float: left;
+    cursor: pointer;
+}
+
+#editButton {
+    float: right;
+    margin-right: 20px;
+    margin-top: 23px;
+    cursor: pointer;
+}
+
+#topMenu {
+   position: absolute;
+    display: none;
+   height 20px;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: backUp;
+}
+
+#subMenu {
+    text-decoration: none;
+    
+}
+
+#motorsPage {
+    display: none;
+}
+
+#sensorsPage {
+    display: none;
+}
+
+#loginPage {
+    display: block;
+}
+    
+#topMenu:hover {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: dropDown;
+    height: 200px;
+}
+
+@-webkit-keyframes dropDown {
+    from {height: 20px;}
+    to {height: 200px;}
+}
+
+@-webkit-keyframes backUp {
+    from {height: 200px;}
+    to {height: 20px;}
+}
