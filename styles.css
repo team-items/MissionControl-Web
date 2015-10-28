@@ -68,7 +68,7 @@ nav {
 }
 
 #sensorsPage {
-    display: none;
+    display: block;
 }
 
 #loginPage {

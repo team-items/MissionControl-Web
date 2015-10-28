@@ -9,6 +9,12 @@
     <link href="styles.css" rel="stylesheet">
     <link href="sernmot-styles.css" rel="stylesheet">
     <link href="sensors-styles.css" rel="stylesheet">
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="scripts/canvasjs.min.js"></script> 
+    <script src="scripts/graphCanvasJS.js"></script>
+    <script src="scripts/graph.js"></script>
     
     
   </head>
@@ -16,24 +22,22 @@
 <body id="body">
      
       
-      <nav>
-          
-            <img src="media/missioncontrol-icon.png" id="homeIcon"/>
-          
-            <div id="linkList">
-                <span class="listElement navFont">Servos and Motors</span>
-                <span class="listElement navFont">Sensors</span>
-                
-            </div>
-            <div id="editButton" class="navElement navFont">
-                Edit
-                <div class="topMenu">
-                    <span class="subMenu">Edit Names</span>
-                    <span class="subMenu">Log out</span>
-                </div> 
-            </div>           
-      </nav>
-    
+      <nav>  
+        <img src="media/missioncontrol-icon.png" id="homeIcon"/>
+
+        <div id="linkList">
+            <span class="listElement navFont">Servos and Motors</span>
+            <span class="listElement navFont">Sensors</span>
+
+        </div>
+        <div id="editButton" class="navElement navFont">
+            Edit
+            <div class="topMenu">
+                <span class="subMenu">Edit Names</span>
+                <span class="subMenu">Log out</span>
+            </div> 
+        </div>           
+    </nav>
     <div id="loginPage">
         
     </div>
@@ -51,7 +55,7 @@
                 <input class="servosSlider" type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
         
@@ -64,7 +68,31 @@
                 <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
+            </div>
+        </div>
+          <div class="servosContainer">
+            <div class="header">
+                <span class="name">servo name</span>
+                <span class="value">value</span>
+            </div>
+            <div class="sliderBox">
+                <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
+            </div>
+            <div class="footer">
+                <span class="updateButton">Set Value</span>
+            </div>
+        </div>
+          <div class="servosContainer">
+            <div class="header">
+                <span class="name">servo name</span>
+                <span class="value">value</span>
+            </div>
+            <div class="sliderBox">
+                <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
+            </div>
+            <div class="footer">
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           <div class="servosContainer">
@@ -88,31 +116,7 @@
                 <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
-            </div>
-        </div>
-          <div class="servosContainer">
-            <div class="header">
-                <span class="name">servo name</span>
-                <span class="value">value</span>
-            </div>
-            <div class="sliderBox">
-                <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
-            </div>
-            <div class="footer">
-                <span class="updateButton">SetValue</span>
-            </div>
-        </div>
-          <div class="servosContainer">
-            <div class="header">
-                <span class="name">servo name</span>
-                <span class="value">value</span>
-            </div>
-            <div class="sliderBox">
-                <input class="servosSlider"  type="range" min="0" max="2048" value="0"/>
-            </div>
-            <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
       
@@ -129,7 +133,7 @@
                 <input id="motor0"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           
@@ -142,7 +146,7 @@
                 <input id="motor1"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           <div class="motorsContainer">
@@ -154,7 +158,7 @@
                 <input id="motor2"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           <div class="motorsContainer">
@@ -166,7 +170,7 @@
                 <input id="motor3"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           <div class="motorsContainer">
@@ -178,7 +182,7 @@
                 <input id="motor4"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           <div class="motorsContainer">
@@ -190,7 +194,7 @@
                 <input id="motor5"  type="range" min="0" max="2048" value="0"/>
             </div>
             <div class="footer">
-                <span class="updateButton">SetValue</span>
+                <span class="updateButton">Set Value</span>
             </div>
         </div>
           
@@ -208,9 +212,7 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           
         <div class="sensorsContainer">
@@ -218,9 +220,7 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           
           <div class="sensorsContainer">
@@ -228,36 +228,28 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           <div class="sensorsContainer">
             <div class="header">
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <div class="graphCanvasJS"></div>
         </div>
           <div class="sensorsContainer">
             <div class="header">
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           <div class="sensorsContainer">
             <div class="header">
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
       
       </div>
@@ -269,9 +261,7 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           
         <div class="sensorsContainer">
@@ -279,9 +269,15 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
+            <canvas class="graph"></canvas>  
+        </div>
+        
+          <div class="sensorsContainer">
+            <div class="header">
+                <span class="name">sensor name</span>
+                <span class="value">value</span>
             </div>
+            <div class="graphCanvasJS"></div>
         </div>
           
           <div class="sensorsContainer">
@@ -289,9 +285,7 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
           
           <div class="sensorsContainer">
@@ -299,19 +293,7 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graph">
-                here goes the graph
-            </div>
-        </div>
-          
-          <div class="sensorsContainer">
-            <div class="header">
-                <span class="name">sensor name</span>
-                <span class="value">value</span>
-            </div>
-            <div class="graph">
-                here goes the graph
-            </div>
+            <canvas class="graph"></canvas>
         </div>
       
       </div>
