@@ -12,8 +12,8 @@
       
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <script src="scripts/canvasjs.min.js"></script> 
-    <script src="scripts/graphCanvasJS.js"></script>
+    <!--<script src="scripts/canvasjs.min.js"></script>-->
+    <!--<script src="scripts/graphCanvasJS.js"></script>-->
     <script src="scripts/graph.js"></script>
     
     
@@ -30,14 +30,14 @@
             <span class="listElement navFont">Sensors</span>
 
         </div>
-        <div id="editButton" class="navElement navFont">
-            Edit
-            <div class="topMenu">
-                <span class="subMenu">Edit Names</span>
-                <span class="subMenu">Log out</span>
-            </div> 
-        </div>           
+               
     </nav>
+        <p id="editButton" class="navFont">Edit</p>
+        <ul id="dropDown" class="navFont">
+            <li>Edit Names</li></br>
+            <li>Log out</li>
+        </ul>
+    
     <div id="loginPage">
         
     </div>
@@ -213,6 +213,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
           
         <div class="sensorsContainer">
@@ -221,6 +224,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
           
           <div class="sensorsContainer">
@@ -229,20 +235,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
-        </div>
-          <div class="sensorsContainer">
-            <div class="header">
-                <span class="name">sensor name</span>
-                <span class="value">value</span>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
             </div>
-            <div class="graphCanvasJS"></div>
-        </div>
-          <div class="sensorsContainer">
-            <div class="header">
-                <span class="name">sensor name</span>
-                <span class="value">value</span>
-            </div>
-            <canvas class="graph"></canvas>
         </div>
           <div class="sensorsContainer">
             <div class="header">
@@ -250,6 +245,29 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
+        </div>
+          <div class="sensorsContainer">
+            <div class="header">
+                <span class="name">sensor name</span>
+                <span class="value">value</span>
+            </div>
+            <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
+        </div>
+          <div class="sensorsContainer">
+            <div class="header">
+                <span class="name">sensor name</span>
+                <span class="value">value</span>
+            </div>
+            <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
       
       </div>
@@ -262,6 +280,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
           
         <div class="sensorsContainer">
@@ -270,6 +291,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>  
+            <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
         
           <div class="sensorsContainer">
@@ -277,7 +301,10 @@
                 <span class="name">sensor name</span>
                 <span class="value">value</span>
             </div>
-            <div class="graphCanvasJS"></div>
+            <canvas class="graph"></canvas>
+              <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
           
           <div class="sensorsContainer">
@@ -286,6 +313,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+              <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
           
           <div class="sensorsContainer">
@@ -294,6 +324,9 @@
                 <span class="value">value</span>
             </div>
             <canvas class="graph"></canvas>
+              <div class="footer">
+                <span class="stopButton">Stop Graph</span>
+            </div>
         </div>
       
       </div>

@@ -1,7 +1,12 @@
-function setupChart(graph)
-{
-    var windowWidth = screen.width;
+var myLineCharts = [];
+var windowWidth = $(window).width();
+function MyChart(graph) {
+
+    this.drawing = "1";
+    var that = this;
+    
     var xValue = 1000;
+    
     var data = {
         labels : ["","","","","","","","","",""],
         datasets : [
@@ -23,11 +28,13 @@ function setupChart(graph)
         ]
     }
     var options = {
+        responsive: true,
+        maintainAspectRatio: true,
         animation: false,
         scaleOverride: true,
         
-        scaleSteps: 5,
-        scaleStepWidth: 20,
+        scaleSteps: 2,
+        scaleStepWidth: 512,
         scaleStartValue: 0,
         
         scaleShowGridLines : false,
@@ -43,41 +50,77 @@ function setupChart(graph)
     
     function getRandomIntIncl(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    }    
 
-    function updateValues() {
-        
-        if (screen.width != windowWidth)
+    this.updateValues = function() {
+        if (that.drawing == "1")
         {
-            myLineChart.resize();
+            if (xValue % 500 == 0)
+            {
+                myLineChart.addData([getRandomIntIncl(0, 1024)], xValue/1000+"s");
+            }
+            else
+            {
+               myLineChart.addData([getRandomIntIncl(0, 100)], ""); 
+            }
+            if (myLineChart.datasets[0].points.length > 100)
+            {
+                myLineChart.removeData();
+            }
+            xValue += 100; 
         }
-
-        if (xValue % 500 == 0)
-        {
-            myLineChart.addData([getRandomIntIncl(0, 100)], xValue/1000+"s"); 
-        }
-        else
-        {
-           myLineChart.addData([getRandomIntIncl(0, 100)], ""); 
-        }
-        if (myLineChart.datasets[0].points.length > 10)
-        {
-            myLineChart.removeData();
-        }
-        xValue += 100;        
+    } 
+    
+    this.resize = function() {
+        myLineChart.resize();   
+        console.log("worked");
     }
-    
-    
-    
-    setInterval(updateValues, 100);        
-    
 }
+
+
+
+function changeChartState(evt)
+{
+    var button = evt.target;
+    var currGraph = button.parentElement.parentElement.getElementsByClassName("graph")[0];
+    var index;
+    var graphs = document.getElementsByClassName("graph");
+    for (i = 0; i < graphs.length; i++) {
+        if (graphs[i] == currGraph)
+        {
+            index = i;
+        }
+    }
+    if (button.innerHTML == "Stop Graph")
+    {
+        myLineCharts[index].drawing = "0";
+        button.innerHTML = "Continue Graph";
+    }
+    else 
+    {
+        myLineCharts[index].drawing = "1";
+        button.innerHTML = "Stop Graph";
+    }    
+}
+
+/*$(window).resize(function(){
+   for (i = 0; i < myLineCharts.length; i++) {
+        myLineCharts[i].resize();   
+   }
+});*/
 
 $(document).ready(function (){
     
     var graphs = document.getElementsByClassName("graph");
     for (i = 0; i < graphs.length; i++) {
-        graphs[i].addEventListener(setupChart(graphs[i]), false);
+        var chart = new MyChart(graphs[i]);
+        setInterval(chart.updateValues, 100); 
+        myLineCharts.push(chart);
+    } 
+    
+    var stopButtons = document.getElementsByClassName("stopButton");
+    for (i = 0; i < stopButtons.length; i++) {
+        stopButtons[i].addEventListener("click", changeChartState, false);
     } 
 })
 

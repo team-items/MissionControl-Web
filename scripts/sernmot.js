@@ -12,14 +12,14 @@ function init()
 {
     var buttons = document.getElementsByClassName("listElement");
     buttons[0].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.display = 'none';
-                                    document.getElementById("sensorsPage").style.display = 'none';
+                                    document.getElementById("loginPage").style.visibility = 'hidden';
+                                    document.getElementById("sensorsPage").style.visibility = 'hidden';
                                     document.getElementById("motorsPage").style.display = 'block';
     });
     buttons[1].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.display = 'none';
+                                    document.getElementById("loginPage").style.visibility = 'hidden';
                                     document.getElementById("motorsPage").style.display = 'none';
-                                    document.getElementById("sensorsPage").style.display = 'block';
+                                    document.getElementById("sensorsPage").style.visibility = 'visible';
     }); 
     
     var servos = document.getElementsByClassName("servosContainer");
@@ -39,3 +39,29 @@ function init()
 }
 
 init();
+
+$("#editButton").click(function(){
+    //$("#dropDown").slideToggle(400);
+    console.log($("#dropDown").is(":hidden"));
+    if($("#dropDown").is(":hidden"))
+    {
+        $("#dropDown").slideDown(400);
+        setTimeout(function() {
+            $("#dropDown").css("background-color", "#de2b4a");
+            $("#editButton").css("background-color", "#de2b4a");
+        }, 140);
+    }     
+    else
+    {
+        $("#dropDown").slideUp(400);
+        setTimeout(function() {
+            $("#dropDown").css("background-color", "#F43254");
+            $("#editButton").css("background-color", "#F43254");
+        }, 360);
+    }
+});
+
+$(document).ready(function(){
+    $("#dropDown").hide();
+});
+

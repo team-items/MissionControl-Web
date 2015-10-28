@@ -44,23 +44,25 @@ nav {
 }
 
 #editButton {
-    float: right;
-    margin-right: 20px;
-    margin-top: 23px;
-    cursor: pointer;
-}
-
-#topMenu {
-   position: absolute;
-    display: none;
-   height 20px;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-name: backUp;
-}
-
-#subMenu {
-    text-decoration: none;
     
+    cursor: pointer;
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    background-color: #F43254;
+    text-align: right;
+    padding: 25px 60px 22px 74px;
+}
+
+#dropDown {
+    text-align: right;
+    background-color: #F43254;
+    list-style-type: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    padding: 20px 35px 25px 30px;
 }
 
 #motorsPage {
@@ -68,25 +70,10 @@ nav {
 }
 
 #sensorsPage {
-    display: block;
+    visibility: hidden;
 }
 
 #loginPage {
-    display: block;
+    visibility: visible;
 }
     
-#topMenu:hover {
-    -webkit-animation-duration: 1s;
-    -webkit-animation-name: dropDown;
-    height: 200px;
-}
-
-@-webkit-keyframes dropDown {
-    from {height: 20px;}
-    to {height: 200px;}
-}
-
-@-webkit-keyframes backUp {
-    from {height: 200px;}
-    to {height: 20px;}
-}
