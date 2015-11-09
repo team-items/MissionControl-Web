@@ -9,6 +9,7 @@
     <link href="styles.css" rel="stylesheet">
     <link href="sernmot-styles.css" rel="stylesheet">
     <link href="sensors-styles.css" rel="stylesheet">
+    <link href="login-styles.css" rel="stylesheet">
       
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
@@ -23,7 +24,7 @@
      
       
       <nav>  
-        <img src="media/missioncontrol-icon.png" id="homeIcon"/>
+        <img src="media/missioncontrol-icon.png" id="homeIcon" class="listElement"/>
 
         <div id="linkList">
             <span class="listElement navFont">Servos and Motors</span>
@@ -39,6 +40,14 @@
         </ul>
     
     <div id="loginPage">
+        <div id="loginContainer">
+            <div id="loginHeader" class="loginFont loginText">Log In</div>
+            <form>
+                <input id="hostnameInput" class="loginInputField loginField loginFont" type="text" placeholder="Hostname or IP"/>
+                <input id="passwordInput" class="loginInputField loginField loginFont" type="password" placeholder="Password"/>
+            </form>
+            <div id="loginFooter"><span id="connectButton" class="loginFont">Connect</span></div>
+        </div>
         
     </div>
       
