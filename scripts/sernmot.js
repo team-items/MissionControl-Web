@@ -45,17 +45,17 @@ $(document).ready(function(){
     
     var buttons = document.getElementsByClassName("listElement");
     buttons[0].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.visibility = 'visible';
+                                    document.getElementById("loginPage").style.display = 'block';
                                     document.getElementById("sensorsPage").style.visibility = 'hidden';
                                     document.getElementById("motorsPage").style.display = 'none';
     });
     buttons[1].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.visibility = 'hidden';
+                                    document.getElementById("loginPage").style.display = 'none';
                                     document.getElementById("sensorsPage").style.visibility = 'hidden';
                                     document.getElementById("motorsPage").style.display = 'block';
     });
     buttons[2].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.visibility = 'hidden';
+                                    document.getElementById("loginPage").style.display = 'none';
                                     document.getElementById("motorsPage").style.display = 'none';
                                     document.getElementById("sensorsPage").style.visibility = 'visible';
     }); 

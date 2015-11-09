@@ -74,6 +74,6 @@ nav {
 }
 
 #loginPage {
-    visibility: visible;
+    display: block;
 }
     
