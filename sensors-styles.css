@@ -18,7 +18,7 @@
     height: 250px;
     display: inline-block;
     margin-bottom: 20px;
-
+    z-index: 100;
 }
 
 .header {

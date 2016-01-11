@@ -9,15 +9,38 @@ function setValue(evt) {
 }
 
 function connect(evt) {
-    alert("Connecting...");   
-}
-
-function init()
-{
+    var address = $("#hostnameInput").val; 
+    setupConnection(address);
     
 }
 
-init();
+function changeToSerAndMotPage()
+{
+    $(".navFont").each(function(){this.style.display = 'block';});
+    
+    document.getElementById("loginPage").style.display = 'none';
+    document.getElementById("sensorsPage").style.visibility = 'hidden';
+    document.getElementById("motorsPage").style.display = 'block';
+}
+
+function changeToSensorsPage()
+{
+    $(".navFont").each(function(){this.style.display = 'block';});
+    
+    document.getElementById("loginPage").style.display = 'none';
+    document.getElementById("sensorsPage").style.visibility = 'visible';
+    document.getElementById("motorsPage").style.display = 'none';
+}
+
+function changeToLoginPage()
+{
+    var menuItems = $(".navFont");
+    $(".navFont").each(function(){this.style.display = 'none';});
+    
+    document.getElementById("loginPage").style.display = 'block';
+    document.getElementById("sensorsPage").style.visibility = 'hidden';
+    document.getElementById("motorsPage").style.display = 'none';
+}
 
 $("#editButton").click(function(){
     //$("#dropDown").slideToggle(400);
@@ -36,7 +59,7 @@ $("#editButton").click(function(){
         setTimeout(function() {
             $("#dropDown").css("background-color", "#F43254");
             $("#editButton").css("background-color", "#F43254");
-        }, 360);
+        }, 290);
     }
 });
 
@@ -45,19 +68,13 @@ $(document).ready(function(){
     
     var buttons = document.getElementsByClassName("listElement");
     buttons[0].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.display = 'block';
-                                    document.getElementById("sensorsPage").style.visibility = 'hidden';
-                                    document.getElementById("motorsPage").style.display = 'none';
+                                    changeToLoginPage();
     });
     buttons[1].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.display = 'none';
-                                    document.getElementById("sensorsPage").style.visibility = 'hidden';
-                                    document.getElementById("motorsPage").style.display = 'block';
+                                    changeToSerAndMotPage();
     });
     buttons[2].addEventListener("click", function(){
-                                    document.getElementById("loginPage").style.display = 'none';
-                                    document.getElementById("motorsPage").style.display = 'none';
-                                    document.getElementById("sensorsPage").style.visibility = 'visible';
+                                    changeToSensorsPage();
     }); 
     
     var servos = document.getElementsByClassName("servosContainer");
@@ -74,7 +91,6 @@ $(document).ready(function(){
     for (i = 0; i < updateButtons.length; i++) {
         updateButtons[i].addEventListener("click", setValue, false);
     }
-    
     document.getElementById("connectButton").addEventListener("click", connect, false);
 });
 

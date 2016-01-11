@@ -15,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
     <!--<script src="scripts/canvasjs.min.js"></script>-->
     <!--<script src="scripts/graphCanvasJS.js"></script>-->
-    <script src="scripts/graph.js"></script>
     
     
   </head>
@@ -41,12 +40,14 @@
     
     <div id="loginPage">
         <div id="loginContainer">
-            <div id="loginHeader" class="loginFont loginText">Log In</div>
             <form>
+            <div id="loginHeader" class="loginFont loginText">Log In</div>
+            <div id="loginCenter">
                 <input id="hostnameInput" class="loginInputField loginField loginFont" type="text" placeholder="Hostname or IP"/>
                 <input id="passwordInput" class="loginInputField loginField loginFont" type="password" placeholder="Password"/>
+            </div>
+                <div id="loginFooter"><span id="connectButton" class="loginFont">Connect</span></div>
             </form>
-            <div id="loginFooter"><span id="connectButton" class="loginFont">Connect</span></div>
         </div>
         
     </div>
@@ -223,7 +224,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           
@@ -234,7 +235,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           
@@ -245,7 +246,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           <div class="sensorsContainer">
@@ -255,7 +256,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           <div class="sensorsContainer">
@@ -265,7 +266,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           <div class="sensorsContainer">
@@ -275,7 +276,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
       
@@ -290,7 +291,7 @@
             </div>
             <canvas class="graph"></canvas>
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           
@@ -301,7 +302,7 @@
             </div>
             <canvas class="graph"></canvas>  
             <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
         
@@ -312,7 +313,7 @@
             </div>
             <canvas class="graph"></canvas>
               <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           
@@ -323,7 +324,7 @@
             </div>
             <canvas class="graph"></canvas>
               <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
           
@@ -334,15 +335,16 @@
             </div>
             <canvas class="graph"></canvas>
               <div class="footer">
-                <span class="stopButton">Stop Graph</span>
+                <span class="stopButton">Continue Graph</span>
             </div>
         </div>
       
       </div>
     
     </div>
-      
+      <script src="scripts/clientSocket.js"></script>
       <script src="scripts/sernmot.js"></script>
-    
+            <script src="scripts/graph.js"></script>
+
   </body>
 </html>

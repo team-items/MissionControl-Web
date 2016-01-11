@@ -2,7 +2,8 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: sans-serif;
-    color: #4a4a4a
+    color: #4a4a4a;
+    z-index: 200;
 }
 
 #homeIcon {
@@ -12,7 +13,7 @@ body {
 }
 
 nav {
-    background-color: #F43254;
+    background-color: #f43254;
     overflow: hidden;
     display: inline-block;
     width: 100%;
@@ -35,6 +36,7 @@ nav {
     font-weight: 100;
     font-size: 20px;
     color: white;
+    display: none;
 }
 
 .listElement {
@@ -63,6 +65,7 @@ nav {
     top: 50px;
     right: 0px;
     padding: 20px 35px 25px 30px;
+    z-index: 150;
 }
 
 #motorsPage {

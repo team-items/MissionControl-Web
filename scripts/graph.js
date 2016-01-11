@@ -1,8 +1,10 @@
 var myLineCharts = [];
 var windowWidth = $(window).width();
-function MyChart(graph) {
+function MyChart(graph, maxGraphPoints, graphname) {
 
-    this.drawing = "1";
+    this.graphName = graphname;
+    this.drawing = "0";
+    this.maxPoints = maxGraphPoints;
     var that = this;
     
     var xValue = 1000;
@@ -19,11 +21,6 @@ function MyChart(graph) {
             pointBorderColor: "rgba(220,220,220,1)",
             pointBackgroundColor: "#fff",
             pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(220,220,220,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            data: [28, 60]
         }
         ]
     }
@@ -36,6 +33,8 @@ function MyChart(graph) {
         scaleSteps: 2,
         scaleStepWidth: 512,
         scaleStartValue: 0,
+        
+        tooltipEvents: ["click"],
         
         scaleShowGridLines : false,
         pointDot: false,
@@ -55,15 +54,9 @@ function MyChart(graph) {
     this.updateValues = function() {
         if (that.drawing == "1")
         {
-            if (xValue % 500 == 0)
-            {
-                myLineChart.addData([getRandomIntIncl(0, 1024)], xValue/1000+"s");
-            }
-            else
-            {
-               myLineChart.addData([getRandomIntIncl(0, 100)], ""); 
-            }
-            if (myLineChart.datasets[0].points.length > 100)
+            myLineChart.addData(getMIDaC); 
+            
+            if (myLineChart.datasets[0].points.length > that.maxPoints)
             {
                 myLineChart.removeData();
             }
@@ -113,7 +106,7 @@ $(document).ready(function (){
     
     var graphs = document.getElementsByClassName("graph");
     for (i = 0; i < graphs.length; i++) {
-        var chart = new MyChart(graphs[i]);
+        var chart = new MyChart(graphs[i], 20, "analog"+i);
         setInterval(chart.updateValues, 100); 
         myLineCharts.push(chart);
     } 
