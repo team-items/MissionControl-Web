@@ -5,23 +5,35 @@ var status;
 
 var connREQ = '{'+
               '  "ConnREQ" : {'+
-                    '"HardwareType" : "Smartphone",'+
-                    '"SupportedCrypto" : [ "RSA512" ],'+
+                    '"HardwareType" : "Web",'+
+                    '"SupportedCrypto" : [],'+
                     '"PreferredCrypto" : "None",'+
                         
                     '"SupportedDT" : [ "Bool", "String", "Integer", "Slider" ],'+
-                    '"PublicKeys" : [ "key" ]'+
+                    '"PublicKeys" : []'+
                 '}'+
                 '}'; 
-var connSTT = '{"ConnSTT" : {}}';
+var connSTT = '{"ConnSTT" : {"Thanks" : "M8"}}';
 
 var controlMessage = '{"Control" : {"SomeSlider" : 76,"SomeButton" : "click"}}';
 var currMessage = "";
 
+/**
+ * @param {string} name name of the object
+ */
 function getMIDaCValue(name)
 {
-    var laoJson = JSON.parse(currMessage);
-    return laoJson[name];
+    var retVal = 0;
+    try 
+    {
+        var valuesJson = JSON.parse(currMessage);
+        retVal = valuesJson[name];
+    }
+    catch(e)
+    {
+        console.error("Couldn't get value of" + name + ":\n" + e.message);
+    }
+    return retVal;
 }
 
 function setupConnection(address)
@@ -32,7 +44,7 @@ function setupConnection(address)
     
     try
     {
-        connection = new WebSocket("ws://192.168.1.120:62626");
+        connection = new WebSocket("ws://items.ninja:62626");
         if (connection == null)
         {
             throw "Couldn't connect to server"; 
@@ -49,7 +61,7 @@ function setupConnection(address)
             // Errors
             connection.onerror = function (error) 
             {
-                console.log('WebSocket Error ' + error);
+                console.log('WebSocket Error: ' + error.message);
             };
 
             // Messages from the server
@@ -58,13 +70,13 @@ function setupConnection(address)
                 if (packageExistCounter >= packageExistLimit)
                 {
                     packageExistCounter = 0;
-                    console.log("package recieve timed out")
+                    console.log("package recieve timed out");
                     currMessage = "";
                 }
-                console.log('\nServer: \n' + message.data);
+                //console.log('\nServer: \n' + message.data);
                 currMessage = message.data;
                 
-                console.log(status);
+                //console.log(status);
                 if (status == 0)
                 {
                     if (check_connACK())
@@ -79,13 +91,18 @@ function setupConnection(address)
                         status = 2; 
                         connection.send(connSTT);
                         changeToSerAndMotPage();
+                        addGraph($("#sensorsCol1"), "Yolo", 20);
+                        addSlider($("#servos"), "Trolo", 20, 100);
+                        attachEvents();
                     }
                 }
-            }
+                
+            };
         }
     }
     catch(e)
     {
+        console.error(e.name);
         console.error(e.message);
     }
 }
@@ -100,12 +117,12 @@ function check_connACK()
     {
         var currJson = JSON.parse(currMessage);
 
-        if (currJson["ConnREJ"] != null)
+        if (currJson.ConnREJ != null)
         {                
-            if (currJson["ConnREJ"]["Error"] != null && 
-                Object.values(currJson["ConnREJ"]["Error"]).length > 0)
+            if (currJson.ConnREJ.Error != null && 
+                Object.values(currJson.ConnREJ.Error).length > 0)
             {
-                    alert("Error: " + currJson["ConnREJ"]["Error"]);
+                    alert("Error: " + currJson.ConnREJ.Error);
                     done = true;
                     isNoError = false;
             }
@@ -114,13 +131,9 @@ function check_connACK()
                 throw "Didn't recieve the entire Message";
             }
         }
-        else if (currJson["ConnACK"] != null)
+        else if (currJson.ConnACK != null)
         {
             connACK = currJson;  
-        }
-        else
-        {
-
         }
     }
     return isNoError;
@@ -134,14 +147,38 @@ function check_connLAO()
     {
         var currJson = JSON.parse(currMessage);
 
-        if (currJson["ConnACK"] != null)
+        if (currJson.ConnLAO != null)
         {
-            connLAO = currJson;   
+            connLAO = currJson;
+            console.log(connLAO); 
+            if (currJson.ConnLAO.Information != null && currJson.ConnLAO.Controller != null)
+            {
+                var connLAO = currJson.ConnLAO;
+                for (type in connLAO.Information)
+                {
+                    console.log(type);   
+                }
+                for (element in connLAO.Controller)
+                {
+                    console.log(typeof(element)); 
+                    console.log(element);   
+                }
+                
+            }
+            else 
+            {
+                succeeded = false;
+                throw "Information or Controller not in the message";
+            }
+        }
+        else
+        {
+            succeeded = false;   
         }
     }
     catch(e)
     {
         console.error(e.message);
     }
-    return true;
+    return succeeded;
 }

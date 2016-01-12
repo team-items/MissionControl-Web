@@ -1,11 +1,11 @@
 var myLineCharts = [];
 var windowWidth = $(window).width();
-function MyChart(graph, maxGraphPoints, graphname) {
+function MyChart(graph, maxGraphPoints, graphName) {
 
-    this.graphName = graphname;
+    this.name = graphName;
     this.drawing = "0";
     this.maxPoints = maxGraphPoints;
-    var that = this;
+    
     
     var xValue = 1000;
     
@@ -42,9 +42,9 @@ function MyChart(graph, maxGraphPoints, graphname) {
         datasetStroke : true,
         bezierCurve: false
     }
+    var that = this;
+    
     var ctx = graph.getContext("2d");
-    
-    
     var myLineChart = new Chart(ctx).Line(data, options);
     
     function getRandomIntIncl(min, max) {
@@ -54,7 +54,7 @@ function MyChart(graph, maxGraphPoints, graphname) {
     this.updateValues = function() {
         if (that.drawing == "1")
         {
-            myLineChart.addData(getMIDaC); 
+            myLineChart.addData(getMIDaCValue(that.name)); 
             
             if (myLineChart.datasets[0].points.length > that.maxPoints)
             {
@@ -66,7 +66,7 @@ function MyChart(graph, maxGraphPoints, graphname) {
     
     this.resize = function() {
         myLineChart.resize();   
-        console.log("worked");
+        console.log("resizing graph of " + that.name + " worked");
     }
 }
 
