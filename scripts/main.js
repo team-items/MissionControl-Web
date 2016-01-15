@@ -4,7 +4,7 @@ var ControlTypes =
     "Slider" : '<div class="motorsContainer">'+
             '<div class="header">'+
                 '<span class="name"><motorname></span>'+
-                '<span type="text" class="value"/>'+
+                '<span class="value">0</span>'+
             '</div>'+
             '<div class="sliderBox">'+
                 '<input type="range" min="0" max="2048" value="0"/>'+
@@ -16,9 +16,9 @@ var ControlTypes =
     "Graph" : '<div class="sensorsContainer">'+
             '<div class="header">'+
                 '<span class="name"><sensorname></span>'+
-                '<span class="value">value</span>'+
+                '<span class="value">0</span>'+
             '</div>'+
-            '<canvas class="graph"></canvas>'+
+            '<div class="graph" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
                 '<span class="stopButton">Continue Graph</span>'+
             '</div>'+
@@ -71,13 +71,14 @@ function addSlider(dest, name, min, max)
     console.log(typeof(dest));
 
     //doesn't work
-    var sliderHO = jQuery.parseHTML(ControlTypes["Slider"]);
-    console.log(ControlTypes["Slider"]);
+    //var sliderHO = jQuery.parseHTML(ControlTypes["Slider"]);
+    //console.log(sliderHO);
     //set name of slider
-    //var sliderCpy = ControlTypes["Slider"].substr(0);
-    //sliderCpy = sliderCpy.replace("<motorname>", name);
-    dest.append(sliderHO);
-    $(sliderHO).select(".name")[0].innerHTML = name;
+    var sliderCpy = ControlTypes["Slider"].substr(0);
+    sliderCpy = sliderCpy.replace("<motorname>", name);
+    
+    dest.append($(sliderCpy));
+    console.log($(sliderCpy).find(".name")[0].innerHTML);
 }
 
 /**
@@ -85,21 +86,24 @@ function addSlider(dest, name, min, max)
  * @param {string} name name of the graph
  * @param {integer} maxPoints maximum Points the graph displays
  */
-function addGraph(dest, name, maxPoints)
+function addGraph(dest, name, maxPoints, min, max)
 {
     console.log(typeof(dest));
    
     //TODO: initialize the graph properly and set a name
     //set name of graph
-    var sensorHO = $(ControlTypes["Graph"]);
-    console.log(sensorHO);
     
     var graphCpy = ControlTypes["Graph"].substr(0);
     graphCpy = graphCpy.replace("<sensorname>", name);
 
-    dest.append(graphCpy);
+    dest.append($(graphCpy));
+    console.log($(graphCpy).find(".graph").length);
     
-    $(sensorHO).select(".name")[0].innerHTML = name;
+    var chart = new MyFlotChart($(graphCpy).find(".graph")[0], maxPoints, name, min, max);
+    myFlotCharts.push(chart);
+    
+    console.log($(graphCpy).find(".stopButton").length);
+    $(graphCpy).find(".stopButton")[0].click(changeChartState);
 }
 
 function connect(evt) 
@@ -110,20 +114,26 @@ function connect(evt)
 
 function changeToSerAndMotPage()
 {
+    
     $(".navFont").each(function(){this.style.display = 'block';});
     
     document.getElementById("loginPage").style.display = 'none';
     document.getElementById("sensorsPage").style.visibility = 'hidden';
     document.getElementById("motorsPage").style.display = 'block';
+    
+    $("#dropDown").hide();
 }
 
 function changeToSensorsPage()
 {
+    
     $(".navFont").each(function(){this.style.display = 'block';});
     
     document.getElementById("loginPage").style.display = 'none';
     document.getElementById("sensorsPage").style.visibility = 'visible';
     document.getElementById("motorsPage").style.display = 'none';
+    
+    $("#dropDown").hide();
 }
 
 function changeToLoginPage()
@@ -169,6 +179,9 @@ $(document).ready(function(){
     });
     buttons[2].addEventListener("click", function(){
                                     changeToSensorsPage();
+    }); 
+    document.getElementById("logoutButton").addEventListener("click", function(){
+                                    changeToLoginPage();
     }); 
     document.getElementById("connectButton").addEventListener("click", connect, false);
 });

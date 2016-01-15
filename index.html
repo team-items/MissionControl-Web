@@ -12,7 +12,8 @@
     <link href="login-styles.css" rel="stylesheet">
       
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
+    <script src="lib/flot/jquery.flot.js"></script>
     <!--<script src="scripts/canvasjs.min.js"></script>-->
     <!--<script src="scripts/graphCanvasJS.js"></script>-->
     
@@ -34,8 +35,8 @@
     </nav>
         <p id="editButton" class="navFont">Edit</p>
         <ul id="dropDown" class="navFont">
-            <li>Edit Names</li></br>
-            <li>Log out</li>
+            <li id="editNamesButton">Edit Names</li></br>
+            <li id="logoutButton">Log out</li>
         </ul>
     
     <div id="loginPage">
@@ -59,7 +60,7 @@
         <div class="motorsContainer">
             <div class="header">
                 <span class="name">servo name</span>
-                <span type="text" class="value"/>
+                <span class="value">0</span>
             </div>
             <div class="sliderBox">
                 <input type="range" min="0" max="2048" value="0"/>
@@ -76,7 +77,7 @@
         <div class="motorsContainer">
             <div class="header">
                 <span class="name">motor name</span>
-                <span class="value">value</span>
+                <span class="value">0</span>
             </div>
             <div class="sliderBox">
                 <input type="range" min="0" max="2048" value="0"/>
@@ -97,9 +98,9 @@
         <div class="sensorsContainer">
             <div class="header">
                 <span class="name">sensor name</span>
-                <span class="value">value</span>
+                <span class="value">0</span>
             </div>
-            <canvas class="graph"></canvas>
+            <div class="graph"></div>
             <div class="footer">
                 <span class="stopButton">Continue Graph</span>
             </div>
@@ -113,9 +114,9 @@
         <div class="sensorsContainer">
             <div class="header">
                 <span class="name">sensor name</span>
-                <span class="value">value</span>
+                <span class="value">0</span>
             </div>
-            <canvas class="graph"></canvas>
+            <div class="graph"></div>
             <div class="footer">
                 <span class="stopButton">Continue Graph</span>
             </div>
@@ -126,7 +127,7 @@
     </div>
       <script src="scripts/clientSocket.js"></script>
       <script src="scripts/main.js"></script>
-            <script src="scripts/graph.js"></script>
+            <script src="scripts/graphFlot.js"></script>
 
   </body>
 </html>

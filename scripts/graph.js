@@ -7,10 +7,10 @@ function MyChart(graph, maxGraphPoints, graphName) {
     this.maxPoints = maxGraphPoints;
     
     
-    var xValue = 1000;
+    var xValue = 0;
     
     var data = {
-        labels : ["","","","","","","","","",""],
+        labels : [],
         datasets : [
         {
             label: "My Second dataset",

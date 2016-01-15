@@ -91,7 +91,7 @@ function setupConnection(address)
                         status = 2; 
                         connection.send(connSTT);
                         changeToSerAndMotPage();
-                        addGraph($("#sensorsCol1"), "Yolo", 20);
+                        //addGraph($("#sensorsCol1"), "Yolo", 20, 0, 1024);
                         addSlider($("#servos"), "Trolo", 20, 100);
                         attachEvents();
                     }
