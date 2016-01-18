@@ -19,15 +19,16 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     var that = this;
 
     // Set up the control widget
-
+    for	(i = 0; i < that.maxPoints; i++) {
+        that.data.push([i, 0]);
+    }
     this.updateInterval = 100;
-
-    var plot = $.plot(dest, that.data.push([that.xValue, getRandomIntIncl(minBound, maxBound)]),     {
+    
+    var rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
+    that.data[that.xValue] = rand;
+    var plot = $.plot(dest, that.data,  {
         series: {
             shadowSize: 0,	// Drawing is faster without shadows
-            bars: {
-                show: false
-            }
         },
         yaxis: {
             min: minBound,
@@ -44,7 +45,8 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
                 right: 0,
                 bottom: 1,
                 left: 1
-            }
+            },
+            clickable: true
         }
     });
     
@@ -58,16 +60,27 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     this.updateValues = function() {
         if (that.drawing == "1")
         {
-            plot.setData(that.data.push([++that.xValue, getRandomIntIncl(minBound, maxBound)]));
+            rand = [++that.xValue, getRandomIntIncl(minBound, maxBound)];
+            that.data[that.xValue] = rand;
+            
+            plot.setData(that.data);
+            
+            console.log(that.data);
 
             // Since the axes don't change, we don't need to call plot.setupGrid()
 
             plot.draw();
             
+            if (that.xValue > that.maxPoints)
+            {
+                that.xValue = 0;
+            }
+            
         }
+        
     }
-
     setInterval(that.updateValues, that.updateInterval);
+    
 
 }
 
