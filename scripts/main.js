@@ -96,13 +96,16 @@ function addGraph(dest, maxPoints, name, min, max)
     var graphCpy = ControlTypes["Graph"].substr(0);
     graphCpy = graphCpy.replace("<sensorname>", name);
 
-    $(".sensorsCol").append($(graphCpy));
-    
-    var chart = new MyFlotChart($(graphCpy).find(".graph")[0], maxPoints, name, min, max);
+    $(dest).append($(graphCpy));
+    var chart = new MyFlotChart($(graphCpy).find(".graph").first(), maxPoints, name, min, max);
     myFlotCharts.push(chart);
     
-    $(graphCpy).find(".stopButton")[0].click(changeChartState);
-    console.log("worked fine");
+    console.log("graph creation worked fine");
+}
+
+function addStopButtonEvent()
+{
+    $(".sensorsCol").on("click", ".stopButton", changeChartState);   
 }
 
 function connect(evt) 

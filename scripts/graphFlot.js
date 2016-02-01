@@ -22,9 +22,9 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     for	(var i = 0; i < that.maxPoints; i++) {
         that.data.push([i, 0]);
     }
-    console.log(that.data);
+    //console.log(that.data);
     this.updateInterval = 100;
-    
+    console.log(dest);
     var rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
     that.data[that.xValue] = rand;
     this.plot = $.plot(dest, that.data,  {
@@ -115,14 +115,3 @@ $(window).resize(function(){
         myFlotCharts[i].resize();   
    }
 });
-
-$(document).ready(function (){
-    
-    for (var i = 0; i < 2; i++) {
-        
-        addGraph($("#sensorsCol1"), 20, "analog "+i, 0, 1024);
-        console.log(i);
-        
-    } 
-
-})

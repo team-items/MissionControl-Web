@@ -93,7 +93,7 @@ function setupConnection(address)
                         status = 2; 
                         connection.send(connSTT);
                         changeToSerAndMotPage();
-                        addGraph($(".sensorsCol")[0], "Yolo", 20, 0, 1024);
+                        addGraph($(".sensorsCol")[0], 20, "Yolo", 0, 1024);
                         addSlider($("#servos"), "Trolo", 20, 100);
                         attachEvents();
                     }
@@ -141,60 +141,72 @@ function check_connACK()
     return isNoError;
 }   
 
-function process_bool(elements)
+function process_bool(boolElements)
 {
     var maxPoints = 20;
-    for (elem in elements)
+    var currMaxPoints;
+    for (elem in boolElements)
     {
         
-        console.log(elem);
-        if (elem.Graph != null)
+        currMaxPoints = boolElements[elem].Graph;
+        if (currMaxPoints != null)
         {
-            maxPoints = elem.Graph;   
+            maxPoints = currMaxPoints;   
         }
-        //addGraph($(".sensorsCol")[0], elem, -1, 2);
+        addGraph($("#sensorCol2"), maxPoints, elem, -1, 2);
     }
 }
 
-function process_integer(elements)
+function process_integer(intElements)
 {
     var maxPoints = 20;
-    for (elem in elements)
+    var currMaxPoints;
+    for (elem in intElements)
     {
-        console.log("Generate Graph for" + elem);
-        if (elem.Graph != null)
+        
+        currMaxPoints = intElements[elem].Graph;
+        if (currMaxPoints != null)
         {
-            maxPoints = elem.Graph;   
+            maxPoints = currMaxPoints;   
         }
-        //addGraph($(".sensorsCol")[0], elem, elem.MinBound, 2);
+        addGraph($("#sensorCol1"), 
+                 maxPoints, 
+                 elem, 
+                 intElements[elem].MinBound, 
+                 intElements[elem].MaxBound
+                );
     }
 }
 
-function process_float(elements)
+function process_float(floatElements)
 {
     var maxPoints = 20;
-    for (elem in elements)
+    var currMaxPoints;
+    for (elem in floatElements)
     {
-        console.log("Generate Graph for" + elem);
-        if (elem.Graph != null)
+        
+        currMaxPoints = floatElements[elem].Graph;
+        if (currMaxPoints != null)
         {
-            maxPoints = elem.Graph;   
+            maxPoints = currMaxPoints;   
         }
-        //addGraph($(".sensorsCol")[0], elem.name, -1, 2);
+        addGraph($("#sensorCol1"), 
+                 maxPoints, 
+                 elem, 
+                 floatElements[elem].MinBound, 
+                 floatElements[elem].MaxBound
+                );
     }
 }
 
-function process_string(elements)
+function process_string(strElements)
 {
-    var maxPoints = 20;
-    for (elem in elements)
+    var length;
+    for (elem in strElements)
     {
-        console.log("Generate Graph for" + elem);
-        if (elem.Graph != null)
-        {
-            maxPoints = elem.Graph;   
-        }
-        addGraph($(".sensorsCol")[0], elem.name, -1, 2);
+        length = strElements.MaxLength;
+        
+        //process something with strings
     }
 }
 
@@ -215,10 +227,9 @@ function check_connLAO()
                 var connLAO = currJson.ConnLAO;
                 for (type in connLAO.Information)
                 {
-                    console.log(type);
                     if (type == "Bool")
                     {
-                        process_bool(connLAO.Information.Bool);                    
+                        process_bool(connLAO.Information[type]);                    
                     }
                     else if (type == "Integer")
                     {
@@ -234,6 +245,8 @@ function check_connLAO()
                     }
                     
                 }
+                //add event listener for stopButtons
+                addStopButtonEvent();
                 for (element in connLAO.Controller)
                 {
                     console.log(typeof(element)); 
