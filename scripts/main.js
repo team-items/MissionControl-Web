@@ -10,7 +10,7 @@ var ControlTypes =
                 '<input type="range" min="0" max="2048" value="0"/>'+
             '</div>'+
             '<div class="footer">'+
-                '<span class="updateButton">Set Value</span>'+
+                '<span class="updateButton"><buttonname></span>'+
             '</div>'+
         '</div>',
     "Graph" : '<div class="sensorsContainer">'+
@@ -32,21 +32,19 @@ function setSliderText(evt) {
 
 function setValue(evt) {
     //save value at an appropriate location
-    alert(evt.target.parentElement.parentElement.getElementsByTagName("input")[0].value);
-    //evt.target.parentElement.parentElement.getElementsByClassName("value")[0].innerHTML = evt.target.value;
+   addToDataMessage($(evt.target.parentElement.parentElement).find(".name").first().html(),
+                     $(evt.target.parentElement.parentElement).find(".value").first().html());
+    addToDataMessage($(evt.target.parentElement.parentElement).find(".updateButton").first().html(),
+                     "click");
 }
 
 function attachEvents()
 {
-    var sliders = document.getElementsByClassName("motorsContainer");
-    for (var i = 0; i < sliders.length; i++) {
-        sliders[i].addEventListener("input", setSliderText, false);
-    }   
+    $("#motorsPage").on("input", ".motorsContainer", setSliderText);
+       
+    $("#motorsPage").on("click", ".updateButton", setValue);
     
-    var updateButtons = document.getElementsByClassName("updateButton");
-    for (var i = 0; i < updateButtons.length; i++) {
-        updateButtons[i].addEventListener("click", setValue, false);
-    }
+    $(".sensorsCol").on("click", ".stopButton", changeChartState);
 }
 
 /**
@@ -66,9 +64,8 @@ function addButton(dest, name)
  * @param {integer} min minBound of the slider
  * @param {integer} max maxBound of the slider
  */
-function addSlider(dest, name, min, max)
+function addSlider(dest, name, min, max, buttonName)
 {
-    console.log(typeof(dest));
 
     //doesn't work
     //var sliderHO = jQuery.parseHTML(ControlTypes["Slider"]);
@@ -76,6 +73,7 @@ function addSlider(dest, name, min, max)
     //set name of slider
     var sliderCpy = ControlTypes["Slider"].substr(0);
     sliderCpy = sliderCpy.replace("<motorname>", name);
+    sliderCpy = sliderCpy.replace("<buttonname>", buttonName);
     
     dest.append($(sliderCpy));
     console.log($(sliderCpy).find(".name")[0].innerHTML);
@@ -87,11 +85,8 @@ function addSlider(dest, name, min, max)
  * @param {integer} maxPoints maximum Points the graph displays
  */
 function addGraph(dest, maxPoints, name, min, max)
-{
-    console.log(typeof(dest));
-   
+{   
     //TODO: initialize the graph properly and set a name
-    //set name of graph
     
     var graphCpy = ControlTypes["Graph"].substr(0);
     graphCpy = graphCpy.replace("<sensorname>", name);
@@ -101,11 +96,6 @@ function addGraph(dest, maxPoints, name, min, max)
     myFlotCharts.push(chart);
     
     console.log("graph creation worked fine");
-}
-
-function addStopButtonEvent()
-{
-    $(".sensorsCol").on("click", ".stopButton", changeChartState);   
 }
 
 function connect(evt) 

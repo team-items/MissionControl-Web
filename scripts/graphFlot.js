@@ -24,7 +24,6 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     }
     //console.log(that.data);
     this.updateInterval = 100;
-    console.log(dest);
     var rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
     that.data[that.xValue] = rand;
     this.plot = $.plot(dest, that.data,  {
@@ -78,10 +77,9 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             }
             
         }
-        
+        setTimeout(that.updateValues, that.updateInterval);
     }
-    setInterval(that.updateValues, that.updateInterval);
-
+    that.updateValues();
 }
 
 function changeChartState(evt)

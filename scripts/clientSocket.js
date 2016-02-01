@@ -19,6 +19,8 @@ var controlMessage = '{"Control" : {"SomeSlider" : 76,"SomeButton" : "click"}}';
 var currMessage = "";
 
 var sensors = [];
+//will be sent to server in a certain period
+var dataMessage = {Data : {}};
 
 /**
  * @param {string} name name of the object
@@ -96,6 +98,9 @@ function setupConnection(address)
                         addGraph($(".sensorsCol")[0], 20, "Yolo", 0, 1024);
                         addSlider($("#servos"), "Trolo", 20, 100);
                         attachEvents();
+                        
+                        //begin sending data to server
+                        sendData();
                     }
                 }
                 
@@ -210,6 +215,67 @@ function process_string(strElements)
     }
 }
 
+function process_control_group(groupElements, groupName)
+{
+    var nameOfContainer = groupName;
+    var nameOfButton = "";
+    var minBound, maxBound;
+    
+    for (elem in groupElements)
+    {
+        if (groupElements[elem].ControlType == "Slider")
+        {
+            minBound = groupElements[elem].MinBound;
+            maxBound = groupElements[elem].MaxBound;
+        }
+        else if (groupElements[elem].ControlType == "Button")
+        {
+            nameOfButton = groupElements[elem].Descriptor;
+        }
+    }
+    
+    if (nameOfContainer.search(/servo/i) != -1)
+    {
+        addSlider($("#servos"), nameOfContainer, minBound, maxBound, nameOfButton);   
+    }
+    else if (nameOfContainer.search(/motor/i) != -1)
+    {
+        addSlider($("#motors"), nameOfContainer, minBound, maxBound, nameOfButton);   
+    }
+    else
+    {
+        if ($("#servos").children().length < $("#motors").children().length)
+        {
+            addSlider($("#servos"), nameOfContainer, minBound, maxBound, nameOfButton);      
+        }
+        else
+        {
+            addSlider($("#motors"), nameOfContainer, minBound, maxBound, nameOfButton);
+        }
+    }
+    
+}
+
+function sendData()
+{
+    if (Object.keys(dataMessage.Data).length > 0)
+    {
+        console.log("sending data...");
+        connection.send(dataMessage);
+        dataMessage.Data = {};
+    }
+    setTimeout(sendData, 100);
+}
+
+/**
+ * @param {string} objectName name of the element you want to talk to
+ * @param {integer} value value to be set
+ */
+function addToDataMessage(objectName, value)
+{
+    dataMessage.Data[objectName] = value;
+}
+
 function check_connLAO()
 {
     var succeeded = true;
@@ -233,24 +299,21 @@ function check_connLAO()
                     }
                     else if (type == "Integer")
                     {
-                        process_integer(connLAO.Information.Integer);                    
+                        process_integer(connLAO.Information[type]);                    
                     }
                     else if (type == "Float")
                     {
-                        process_float(connLAO.Information.Float);                    
+                        process_float(connLAO.Information[type]);                    
                     }
                     else if (type == "String")
                     {
-                        process_string(connLAO.Information.String);                    
+                        process_string(connLAO.Information[type]);                    
                     }
                     
                 }
-                //add event listener for stopButtons
-                addStopButtonEvent();
-                for (element in connLAO.Controller)
+                for (group in connLAO.Controller)
                 {
-                    console.log(typeof(element)); 
-                    console.log(element);   
+                    process_control_group(connLAO.Controller[group], group); 
                 }
                 
             }
