@@ -19,25 +19,24 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     var that = this;
 
     // Set up the control widget
-    for	(i = 0; i < that.maxPoints; i++) {
+    for	(var i = 0; i < that.maxPoints; i++) {
         that.data.push([i, 0]);
     }
+    console.log(that.data);
     this.updateInterval = 100;
     
     var rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
     that.data[that.xValue] = rand;
-    var plot = $.plot(dest, that.data,  {
+    this.plot = $.plot(dest, that.data,  {
         series: {
             shadowSize: 0,	// Drawing is faster without shadows
         },
         yaxis: {
             min: minBound,
             max: maxBound,
-            tickLength: 0
         },
         xaxis: {
             show: false,
-            tickLength: 0
         },
         grid : {
             borderWidth: {
@@ -49,27 +48,29 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             clickable: true
         }
     });
-    
+    that.xValue++;
     this.resize = function() {
-        plot.resize();  
-        plot.setupGrid();
-        plot.draw();
+        that.plot.resize();  
+        that.plot.setupGrid();
+        that.plot.draw();
         console.log("resizing graph of " + that.name + " worked");
     }
 
     this.updateValues = function() {
         if (that.drawing == "1")
         {
-            rand = [++that.xValue, getRandomIntIncl(minBound, maxBound)];
+            rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
             that.data[that.xValue] = rand;
+            that.xValue++;
+            that.plot.setData(that.data);
             
-            plot.setData(that.data);
-            
-            console.log(that.data);
-
+            if (that.name == 'analog 0')
+            {
+                console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));
+            }
             // Since the axes don't change, we don't need to call plot.setupGrid()
 
-            plot.draw();
+            that.plot.draw();
             
             if (that.xValue > that.maxPoints)
             {
@@ -80,18 +81,18 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
         
     }
     setInterval(that.updateValues, that.updateInterval);
-    
 
 }
 
 function changeChartState(evt)
 {
-    console.log("gruezii" + evt.target);
+    console.log("in change graph state");
     var button = evt.target;
     var currGraph = button.parentElement.parentElement.getElementsByClassName("graph")[0];
     var index;
     var graphs = document.getElementsByClassName("graph");
-    for (i = 0; i < graphs.length; i++) {
+    
+    for (var i = 0; i < graphs.length; i++) {
         if (graphs[i] == currGraph)
         {
             index = i;
@@ -110,21 +111,18 @@ function changeChartState(evt)
 }
 
 $(window).resize(function(){
-   for (i = 0; i < myFlotCharts.length; i++) {
+   for (var i = 0; i < myFlotCharts.length; i++) {
         myFlotCharts[i].resize();   
    }
 });
 
 $(document).ready(function (){
     
-    var graphs = document.getElementsByClassName("graph");
-    for (i = 0; i < graphs.length; i++) {
-        var chart = new MyFlotChart(graphs[i], 20, "analog"+i, 0, 1024);
-        myFlotCharts.push(chart);
+    for (var i = 0; i < 2; i++) {
+        
+        addGraph($("#sensorsCol1"), 20, "analog "+i, 0, 1024);
+        console.log(i);
+        
     } 
-    
-    var stopButtons = document.getElementsByClassName("stopButton");
-    for (i = 0; i < stopButtons.length; i++) {
-        $(stopButtons[i]).click(changeChartState);
-    } 
+
 })

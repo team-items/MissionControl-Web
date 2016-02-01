@@ -39,12 +39,12 @@ function setValue(evt) {
 function attachEvents()
 {
     var sliders = document.getElementsByClassName("motorsContainer");
-    for (i = 0; i < sliders.length; i++) {
+    for (var i = 0; i < sliders.length; i++) {
         sliders[i].addEventListener("input", setSliderText, false);
     }   
     
     var updateButtons = document.getElementsByClassName("updateButton");
-    for (i = 0; i < updateButtons.length; i++) {
+    for (var i = 0; i < updateButtons.length; i++) {
         updateButtons[i].addEventListener("click", setValue, false);
     }
 }
@@ -86,7 +86,7 @@ function addSlider(dest, name, min, max)
  * @param {string} name name of the graph
  * @param {integer} maxPoints maximum Points the graph displays
  */
-function addGraph(dest, name, maxPoints, min, max)
+function addGraph(dest, maxPoints, name, min, max)
 {
     console.log(typeof(dest));
    
@@ -96,14 +96,13 @@ function addGraph(dest, name, maxPoints, min, max)
     var graphCpy = ControlTypes["Graph"].substr(0);
     graphCpy = graphCpy.replace("<sensorname>", name);
 
-    dest.append($(graphCpy));
-    console.log($(graphCpy).find(".graph").length);
+    $(".sensorsCol").append($(graphCpy));
     
     var chart = new MyFlotChart($(graphCpy).find(".graph")[0], maxPoints, name, min, max);
     myFlotCharts.push(chart);
     
-    console.log($(graphCpy).find(".stopButton").length);
     $(graphCpy).find(".stopButton")[0].click(changeChartState);
+    console.log("worked fine");
 }
 
 function connect(evt) 

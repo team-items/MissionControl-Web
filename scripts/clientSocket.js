@@ -18,6 +18,8 @@ var connSTT = '{"ConnSTT" : {"Thanks" : "M8"}}';
 var controlMessage = '{"Control" : {"SomeSlider" : 76,"SomeButton" : "click"}}';
 var currMessage = "";
 
+var sensors = [];
+
 /**
  * @param {string} name name of the object
  */
@@ -91,7 +93,7 @@ function setupConnection(address)
                         status = 2; 
                         connection.send(connSTT);
                         changeToSerAndMotPage();
-                        //addGraph($("#sensorsCol1"), "Yolo", 20, 0, 1024);
+                        addGraph($(".sensorsCol")[0], "Yolo", 20, 0, 1024);
                         addSlider($("#servos"), "Trolo", 20, 100);
                         attachEvents();
                     }
@@ -139,6 +141,63 @@ function check_connACK()
     return isNoError;
 }   
 
+function process_bool(elements)
+{
+    var maxPoints = 20;
+    for (elem in elements)
+    {
+        
+        console.log(elem);
+        if (elem.Graph != null)
+        {
+            maxPoints = elem.Graph;   
+        }
+        //addGraph($(".sensorsCol")[0], elem, -1, 2);
+    }
+}
+
+function process_integer(elements)
+{
+    var maxPoints = 20;
+    for (elem in elements)
+    {
+        console.log("Generate Graph for" + elem);
+        if (elem.Graph != null)
+        {
+            maxPoints = elem.Graph;   
+        }
+        //addGraph($(".sensorsCol")[0], elem, elem.MinBound, 2);
+    }
+}
+
+function process_float(elements)
+{
+    var maxPoints = 20;
+    for (elem in elements)
+    {
+        console.log("Generate Graph for" + elem);
+        if (elem.Graph != null)
+        {
+            maxPoints = elem.Graph;   
+        }
+        //addGraph($(".sensorsCol")[0], elem.name, -1, 2);
+    }
+}
+
+function process_string(elements)
+{
+    var maxPoints = 20;
+    for (elem in elements)
+    {
+        console.log("Generate Graph for" + elem);
+        if (elem.Graph != null)
+        {
+            maxPoints = elem.Graph;   
+        }
+        addGraph($(".sensorsCol")[0], elem.name, -1, 2);
+    }
+}
+
 function check_connLAO()
 {
     var succeeded = true;
@@ -156,7 +215,24 @@ function check_connLAO()
                 var connLAO = currJson.ConnLAO;
                 for (type in connLAO.Information)
                 {
-                    console.log(type);   
+                    console.log(type);
+                    if (type == "Bool")
+                    {
+                        process_bool(connLAO.Information.Bool);                    
+                    }
+                    else if (type == "Integer")
+                    {
+                        process_integer(connLAO.Information.Integer);                    
+                    }
+                    else if (type == "Float")
+                    {
+                        process_float(connLAO.Information.Float);                    
+                    }
+                    else if (type == "String")
+                    {
+                        process_string(connLAO.Information.String);                    
+                    }
+                    
                 }
                 for (element in connLAO.Controller)
                 {

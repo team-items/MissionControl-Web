@@ -27,19 +27,11 @@
 }
 
 
-#sensorsCol1 {
+.sensorsCol {
     padding: 20px;
     width: calc(50% - 40px);
     display: inline;
     float: left;
-    
-}
-
-#sensorsCol2 {
-    padding: 20px;
-    width: calc(50% - 40px);
-    display: inline;
-    float: right;
     
 }
 
@@ -87,13 +79,7 @@
         margin-left: 20px;
     }
     
-    #sensorsCol1 {
-        width: 50%;
-        padding: 0px;
-        padding-top: 20px;
-    }
-    
-    #sensorsCol2 {
+    .sensorsCol {
         width: 50%;
         padding: 0px;
         padding-top: 20px;
@@ -103,16 +89,9 @@
 @media (max-width: 700px)
 {
     
-    #sensorsCol1 {
+    .sensorsCol {
         width: 95%;
         padding: 0px;
         margin-left: 2.5%; 
-    }
-    
-    #sensorsCol2 {
-        width: 95%;
-        padding: 0px;
-        margin-right: 2.5%;
-        padding-top: 20px;
     }
 }
