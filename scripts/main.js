@@ -18,7 +18,7 @@ var ControlTypes =
                 '<span class="name"><sensorname></span>'+
                 '<span class="value">0</span>'+
             '</div>'+
-            '<div class="graph" style="width: 100%; height: 60%;"></div>'+
+            '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
                 '<span class="stopButton">Continue Graph</span>'+
             '</div>'+
@@ -90,11 +90,11 @@ function addGraph(dest, maxPoints, name, min, max)
     
     var graphCpy = ControlTypes["Graph"].substr(0);
     graphCpy = graphCpy.replace("<sensorname>", name);
-
+    var namewowhitesp = name.replace(/ /g,'');
+    graphCpy = graphCpy.replace("<idsensor>", namewowhitesp);
     $(dest).append($(graphCpy));
-    var chart = new MyFlotChart($(graphCpy).find(".graph").first(), maxPoints, name, min, max);
+    var chart = new MyFlotChart($("#"+namewowhitesp), maxPoints, name, min, max);
     myFlotCharts.push(chart);
-    
     console.log("graph creation worked fine");
 }
 
