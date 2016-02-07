@@ -20,7 +20,7 @@ var ControlTypes =
             '</div>'+
             '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
-                '<span class="stopButton">Continue Graph</span>'+
+                '<span class="stopButton">Stop Graph</span>'+
             '</div>'+
         '</div>'
 }
@@ -107,6 +107,7 @@ function update(){
         else if(value === "false"){
             value = 0;
         }
+
         chart.updateValues(value);
     });
 
