@@ -20,7 +20,7 @@ var ControlTypes =
             '</div>'+
             '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
-                '<span class="stopButton">Continue Graph</span>'+
+                '<span class="stopButton">Stop Graph</span>'+
             '</div>'+
         '</div>'
 }
@@ -96,6 +96,14 @@ function addGraph(dest, maxPoints, name, min, max)
     var chart = new MyFlotChart($("#"+namewowhitesp), maxPoints, name, min, max);
     myFlotCharts.push(chart);
     console.log("graph creation worked fine");
+}
+
+function update(){
+    myFlotCharts.forEach(function(chart){
+        var value = getMIDaCValue(chart.name);
+        chart.updateValues(value);
+    });
+
 }
 
 function connect(evt) 

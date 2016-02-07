@@ -31,7 +31,8 @@ function getMIDaCValue(name)
     try 
     {
         var valuesJson = JSON.parse(currMessage);
-        retVal = valuesJson[name];
+        console.log(valuesJson);
+        retVal = valuesJson['Data'][name];
     }
     catch(e)
     {
@@ -95,15 +96,18 @@ function setupConnection(address)
                         status = 2; 
                         connection.send(connSTT);
                         changeToSerAndMotPage();
-                        //addGraph($(".sensorsCol")[0], 20, "Yolo", 0, 1024);
-                        addSlider($("#servos"), "Trolo", 20, 100);
+                        
+                        
                         attachEvents();
                         
                         //begin sending data to server
                         sendData();
                     }
                 }
-                
+                else if (status == 2){
+                    console.log(currMessage);
+                    update();
+                }
             };
         }
     }
