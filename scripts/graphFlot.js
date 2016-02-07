@@ -32,13 +32,6 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
 
                 var prev = that.data.length > 0 ? that.data[that.data.length - 1] : 50,
                     y = getRandomIntIncl(minBound, maxBound);
-
-                if (y < 0) {
-                    y = 0;
-                } else if (y > 1000) {
-                    y = 1000;
-                }
-
                 that.data.push(y);
             }
 
@@ -57,9 +50,8 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     }
     console.log(that.data);
     console.log(that.data.length);
-    this.updateInterval = 100;
-    var rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
-    //that.data[that.xValue] = rand;
+    this.updateInterval = 20;
+    
     this.plot = $.plot(dest, [ that.getRandomData() ],  {
         series: {
             shadowSize: 0,	// Drawing is faster without shadows
@@ -91,24 +83,13 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
 
     this.updateValues = function() {
         if (that.drawing == "1")
-        {
-            rand = [that.xValue, getRandomIntIncl(minBound, maxBound)];
-            //that.data[that.xValue] = rand;
-            that.xValue++;
+        {   
             that.plot.setData([ that.getRandomData() ]);
-            
-            
-            
-                console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));
-            
+            //console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));   
             // Since the axes don't change, we don't need to call plot.setupGrid()
 
             that.plot.draw();
             
-            if (that.xValue > that.maxPoints)
-            {
-                that.xValue = 0;
-            }
             
         }
         setTimeout(that.updateValues, that.updateInterval);
