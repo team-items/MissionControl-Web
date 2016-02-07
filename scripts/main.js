@@ -20,7 +20,8 @@ var ControlTypes =
             '</div>'+
             '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
-                '<span class="stopButton">Stop Graph</span>'+
+                '<span class="hideButton graphButton">Hide</span>'+
+                '<span class="stopButton graphButton">Stop Graph</span>'+
             '</div>'+
         '</div>'
 }
@@ -45,6 +46,13 @@ function attachEvents()
     $("#motorsPage").on("click", ".updateButton", setValue);
     
     $(".sensorsCol").on("click", ".stopButton", changeChartState);
+    $('#showAllButton').on('click', function(){
+        $('#sensorCol1').children().show("slow");
+        $('#sensorCol2').children().show("slow");
+    });
+    $('.hideButton').on('click', function(){
+        $(this).parent().parent().hide("slow");
+    });
 }
 
 /**
@@ -183,6 +191,8 @@ $(document).ready(function(){
     document.getElementById("logoutButton").addEventListener("click", function(){
                                     changeToLoginPage();
     }); 
+
+
     document.getElementById("connectButton").addEventListener("click", connect, false);
 });
 
