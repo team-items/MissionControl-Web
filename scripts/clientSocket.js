@@ -104,7 +104,7 @@ function setupConnection(address)
                     }
                 }
                 else if (status == 2){
-                    console.log(currMessage);
+                    //console.log(currMessage);
                     update();
                 }
             };

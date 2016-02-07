@@ -5,13 +5,19 @@ function getRandomIntIncl(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 } 
 
+function setGraphValue(name, value)
+{
+    var idwowhitesp = "#"+ name.replace(/ /g,'');
+    $(idwowhitesp).prev().find(".value").html(value);
+}
+
 function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound) 
 {
 
     // We use an inline data source in the example, usually data would
     // be fetched from a server
     this.name = graphName;
-    this.drawing = "0";
+    this.drawing = "1";
     this.maxPoints = maxGraphPoints;
     console.log(maxGraphPoints);
     this.data = [],
@@ -70,7 +76,8 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
                 bottom: 1,
                 left: 1
             },
-            clickable: true
+            clickable: false,
+            hoverable: true
         }
     });
     that.xValue++;
@@ -85,8 +92,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
         if (that.drawing == "1")
         {   
 
-            var idwowhitesp = "#"+ that.name.replace(/ /g,'');
-            $(idwowhitesp).prev().find(".value").html(value);
+            setGraphValue(that.name, value);
             if(value === "true"){
                 value = 1;
             }
@@ -103,6 +109,15 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
         }
         //setTimeout(that.updateValues, that.updateInterval);
     }
+    
+    $(dest).bind("plothover", function (event, pos, item) 
+    {
+        if (item) {
+            var y = item.datapoint[1].toFixed(0);
+
+            setGraphValue(that.name, y);
+        }
+    });
     //that.updateValues();
 }
 
