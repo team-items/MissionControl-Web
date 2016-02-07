@@ -101,13 +101,6 @@ function addGraph(dest, maxPoints, name, min, max)
 function update(){
     myFlotCharts.forEach(function(chart){
         var value = getMIDaCValue(chart.name);
-        if(value === "true"){
-            value = 1;
-        }
-        else if(value === "false"){
-            value = 0;
-        }
-
         chart.updateValues(value);
     });
 

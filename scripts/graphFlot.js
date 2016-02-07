@@ -84,6 +84,15 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     this.updateValues = function(value) {
         if (that.drawing == "1")
         {   
+
+            var idwowhitesp = "#"+ that.name.replace(/ /g,'');
+        $(idwowhitesp).prev().find(".value").html(value);
+        if(value === "true"){
+            value = 1;
+        }
+        else if(value === "false"){
+            value = 0;
+        }
             that.plot.setData([ that.getRandomData(value) ]);
             //console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));   
             // Since the axes don't change, we don't need to call plot.setupGrid()
