@@ -31,7 +31,8 @@ function getMIDaCValue(name)
     try 
     {
         var valuesJson = JSON.parse(currMessage);
-        retVal = valuesJson[name];
+        console.log(valuesJson);
+        retVal = valuesJson['Data'][name];
     }
     catch(e)
     {
@@ -103,7 +104,10 @@ function setupConnection(address)
                         sendData();
                     }
                 }
-                
+                else if (status == 2){
+                    console.log(currMessage);
+                    update();
+                }
             };
         }
     }

@@ -21,7 +21,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     var that = this;
 
 
-    this.getRandomData =function () {
+    this.getRandomData =function (value) {
             
             if (that.data.length > 0)
                 that.data = that.data.slice(1);
@@ -31,7 +31,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             while (that.data.length < that.maxPoints) {
 
                 var prev = that.data.length > 0 ? that.data[that.data.length - 1] : 50,
-                    y = getRandomIntIncl(minBound, maxBound);
+                    y = value
                 that.data.push(y);
             }
 
@@ -50,7 +50,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     }
     console.log(that.data);
     console.log(that.data.length);
-    this.updateInterval = 20;
+    this.updateInterval = 100;
     
     this.plot = $.plot(dest, [ that.getRandomData() ],  {
         series: {
@@ -81,10 +81,10 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
         console.log("resizing graph of " + that.name + " worked");
     }
 
-    this.updateValues = function() {
+    this.updateValues = function(value) {
         if (that.drawing == "1")
         {   
-            that.plot.setData([ that.getRandomData() ]);
+            that.plot.setData([ that.getRandomData(value) ]);
             //console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));   
             // Since the axes don't change, we don't need to call plot.setupGrid()
 
@@ -92,9 +92,9 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             
             
         }
-        setTimeout(that.updateValues, that.updateInterval);
+        //setTimeout(that.updateValues, that.updateInterval);
     }
-    that.updateValues();
+    //that.updateValues();
 }
 
 function changeChartState(evt)
