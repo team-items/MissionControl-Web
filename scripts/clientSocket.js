@@ -290,7 +290,7 @@ function check_connLAO()
         if (currJson.ConnLAO != null)
         {
             connLAO = currJson;
-            console.log(connLAO); 
+            console.log(currMessage); 
             if (currJson.ConnLAO.Information != null && currJson.ConnLAO.Controller != null)
             {
                 var connLAO = currJson.ConnLAO;

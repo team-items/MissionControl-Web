@@ -19,7 +19,6 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     this.name = graphName;
     this.drawing = "1";
     this.maxPoints = maxGraphPoints;
-    console.log(maxGraphPoints);
     this.data = [],
             totalPoints = 300;
     this.xValue = 0;
@@ -54,8 +53,6 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     for	(var i = 0; i < that.maxPoints; i++) {
         //that.data.push([i, 500]);
     }
-    console.log(that.data);
-    console.log(that.data.length);
     this.updateInterval = 100;
     
     this.plot = $.plot(dest, [ that.getRandomData() ],  {

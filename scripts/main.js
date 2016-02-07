@@ -10,7 +10,8 @@ var ControlTypes =
                 '<input type="range" min="0" max="2048" value="0"/>'+
             '</div>'+
             '<div class="footer">'+
-                '<span class="updateButton"><buttonname></span>'+
+                '<span class="sliderHideButton mcButton">Hide</span>'+
+                '<span class="updateButton mcButton"><buttonname></span>'+
             '</div>'+
         '</div>',
     "Graph" : '<div class="sensorsContainer">'+
@@ -20,8 +21,8 @@ var ControlTypes =
             '</div>'+
             '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
-                '<span class="hideButton graphButton">Hide</span>'+
-                '<span class="stopButton graphButton">Stop Graph</span>'+
+                '<span class="graphHideButton mcButton">Hide</span>'+
+                '<span class="stopButton mcButton">Stop Graph</span>'+
             '</div>'+
         '</div>'
 }
@@ -47,10 +48,19 @@ function attachEvents()
     
     $(".sensorsCol").on("click", ".stopButton", changeChartState);
     $('#showAllButton').on('click', function(){
-        $('#sensorCol1').children().show("slow");
-        $('#sensorCol2').children().show("slow");
+        $('.sensorsContainer').show("slow");
+        $('.motorsContainer').show("slow");
+        
+        $("#dropDown").slideUp(400);
+        setTimeout(function() {
+            $("#dropDown").css("background-color", "#F43254");
+            $("#editButton").css("background-color", "#F43254");
+        }, 290);
     });
-    $('.hideButton').on('click', function(){
+    $('.graphHideButton').on('click', function(){
+        $(this).parent().parent().hide("slow");
+    });
+    $('.sliderHideButton').on('click', function(){
         $(this).parent().parent().hide("slow");
     });
 }
@@ -103,7 +113,6 @@ function addGraph(dest, maxPoints, name, min, max)
     $(dest).append($(graphCpy));
     var chart = new MyFlotChart($("#"+namewowhitesp), maxPoints, name, min, max);
     myFlotCharts.push(chart);
-    console.log("graph creation worked fine");
 }
 
 function update(){
