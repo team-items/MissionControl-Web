@@ -20,7 +20,7 @@ var ControlTypes =
             '</div>'+
             '<div class="graph" id="<idsensor>" style="width: 100%; height: 60%;"></div>'+
             '<div class="footer">'+
-                '<span class="stopButton">Stop Graph</span>'+
+                '<span class="stopButton">Continue Graph</span>'+
             '</div>'+
         '</div>'
 }

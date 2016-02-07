@@ -11,7 +11,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
     // We use an inline data source in the example, usually data would
     // be fetched from a server
     this.name = graphName;
-    this.drawing = "1";
+    this.drawing = "0";
     this.maxPoints = maxGraphPoints;
     console.log(maxGraphPoints);
     this.data = [],
@@ -61,7 +61,7 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             max: maxBound,
         },
         xaxis: {
-            show: true,
+            show: false,
         },
         grid : {
             borderWidth: {
@@ -86,20 +86,20 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
         {   
 
             var idwowhitesp = "#"+ that.name.replace(/ /g,'');
-        $(idwowhitesp).prev().find(".value").html(value);
-        if(value === "true"){
-            value = 1;
-        }
-        else if(value === "false"){
-            value = 0;
-        }
+            $(idwowhitesp).prev().find(".value").html(value);
+            if(value === "true"){
+                value = 1;
+            }
+            else if(value === "false"){
+                value = 0;
+            }
             that.plot.setData([ that.getRandomData(value) ]);
             //console.log(that.name + ' : ' + that.data[that.xValue-1] + ' : ' + (that.xValue-1));   
             // Since the axes don't change, we don't need to call plot.setupGrid()
 
             that.plot.draw();
-            
-            
+
+
         }
         //setTimeout(that.updateValues, that.updateInterval);
     }
