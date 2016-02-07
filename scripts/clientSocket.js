@@ -31,7 +31,6 @@ function getMIDaCValue(name)
     try 
     {
         var valuesJson = JSON.parse(currMessage);
-        console.log(valuesJson);
         retVal = valuesJson['Data'][name];
     }
     catch(e)
