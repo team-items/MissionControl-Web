@@ -125,7 +125,8 @@ function update(){
 
 function connect(evt) 
 {
-    var address = $("#hostnameInput").val; 
+    var address = $("#hostnameInput").val(); 
+    console.log(address);
     setupConnection(address);
 }
 

@@ -48,7 +48,8 @@ function setupConnection(address)
     
     try
     {
-        connection = new WebSocket("ws://items.ninja:62626");
+        console.log(address);
+        connection = new WebSocket("ws://" + address);
         if (connection == null)
         {
             throw "Couldn't connect to server"; 
