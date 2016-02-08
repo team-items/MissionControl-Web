@@ -20,7 +20,7 @@ var currMessage = "";
 
 var sensors = [];
 //will be sent to server in a certain period
-var dataMessage = {Data : {}};
+var dataMessage = "";
 
 /**
  * @param {string} name name of the object
@@ -101,7 +101,6 @@ function setupConnection(address)
                         attachEvents();
                         
                         //begin sending data to server
-                        sendData();
                     }
                 }
                 else if (status == 2){
@@ -219,11 +218,28 @@ function process_string(strElements)
     }
 }
 
+function process_button(buttonElement, containerName)
+{
+    var nameOfButton = buttonElement.Descriptor;
+    
+    addButton($("#servos"), containerName, nameOfButton);
+}
+
+function process_slider(sliderElement, sliderName)
+{
+    var minBound = sliderElement.MinBound;
+    var maxBound = sliderElement.MaxBound;
+    
+    addSlider($("#motors"), sliderName, minBound, maxBound);
+}
+
 function process_control_group(groupElements, groupName)
 {
     var nameOfContainer = groupName;
     var nameOfButton = "";
     var minBound, maxBound;
+    var sliderName;
+    var buttonName;
     
     for (elem in groupElements)
     {
@@ -231,30 +247,36 @@ function process_control_group(groupElements, groupName)
         {
             minBound = groupElements[elem].MinBound;
             maxBound = groupElements[elem].MaxBound;
+            sliderName = elem;
         }
         else if (groupElements[elem].ControlType == "Button")
         {
             nameOfButton = groupElements[elem].Descriptor;
+            buttonName = elem;
         }
+        console.log(elem);
     }
+    
+    console.log(buttonName);
+    
     
     if (nameOfContainer.search(/servo/i) != -1)
     {
-        addSlider($("#servos"), nameOfContainer, minBound, maxBound, nameOfButton);   
+        addSliderAndButton($("#servos"), nameOfContainer, buttonName, sliderName, minBound, maxBound, nameOfButton);   
     }
     else if (nameOfContainer.search(/motor/i) != -1)
     {
-        addSlider($("#motors"), nameOfContainer, minBound, maxBound, nameOfButton);   
+        addSliderAndButton($("#motors"), nameOfContainer, buttonName, sliderName, minBound, maxBound, nameOfButton);   
     }
     else
     {
         if ($("#servos").children().length < $("#motors").children().length)
         {
-            addSlider($("#servos"), nameOfContainer, minBound, maxBound, nameOfButton);      
+            addSliderAndButton($("#servos"), nameOfContainer, buttonName, sliderName, minBound, maxBound, nameOfButton);      
         }
         else
         {
-            addSlider($("#motors"), nameOfContainer, minBound, maxBound, nameOfButton);
+            addSliderAndButton($("#motors"), nameOfContainer, buttonName, sliderName, minBound, maxBound, nameOfButton);
         }
     }
     
@@ -262,13 +284,13 @@ function process_control_group(groupElements, groupName)
 
 function sendData()
 {
-    if (Object.keys(dataMessage.Data).length > 0)
+    if (dataMessage.search("Control") != -1)
     {
         console.log("sending data...");
+        console.log(dataMessage);
         connection.send(dataMessage);
-        dataMessage.Data = {};
+        dataMessage = "";
     }
-    setTimeout(sendData, 100);
 }
 
 /**
@@ -277,7 +299,23 @@ function sendData()
  */
 function addToDataMessage(objectName, value)
 {
-    dataMessage.Data[objectName] = value;
+    console.log(typeof(value));
+    if (value != "click")
+    {
+        if (value.search(".") != -1)
+        {
+            dataMessage = '{ "Control" : {"'+objectName+'" : '+parseFloat(value)+' }}';
+        }
+        else
+        {
+            dataMessage = '{ "Control" : {"'+objectName+'" : '+parseInt(value)+' }}';
+        }
+    }
+    else
+    {
+        dataMessage = '{ "Control" : {"'+objectName+'" : "'+value+'" } }';   
+    }
+    sendData();
 }
 
 function check_connLAO()
@@ -317,7 +355,18 @@ function check_connLAO()
                 }
                 for (group in connLAO.Controller)
                 {
-                    process_control_group(connLAO.Controller[group], group); 
+                    if (connLAO.Controller[group].ControlType == "Button")
+                    {
+                        process_button(connLAO.Controller[group], group);
+                    }
+                    else if (connLAO.Controller[group].ControlType == "Slider")
+                    {
+                        process_slider(connLAO.Controller[group], group);
+                    }
+                    else
+                    {
+                        process_control_group(connLAO.Controller[group], group); 
+                    }
                 }
                 
             }

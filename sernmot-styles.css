@@ -43,6 +43,10 @@
     padding-top: 5px;
 }
 
+.buttonFooter {
+    margin-top: 60px;
+}
+
 .updateButton {
     float: right;
 }
