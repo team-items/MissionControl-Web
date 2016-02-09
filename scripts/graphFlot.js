@@ -75,7 +75,8 @@ function MyFlotChart(dest, maxGraphPoints, graphName, minBound, maxBound)
             },
             clickable: false,
             hoverable: true
-        }
+        },
+        colors: ["#F43254"]
     });
     that.xValue++;
     this.resize = function() {
