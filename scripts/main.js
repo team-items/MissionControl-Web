@@ -298,7 +298,11 @@ $(document).ready(function(){
                                     changeToLoginPage();
     }); 
 
-
     document.getElementById("connectButton").addEventListener("click", connect, false);
+    
+    $(document).keypress(function(e){
+      if(e.keyCode==13)
+      $('#connectButton').click();
+    });
 });
 

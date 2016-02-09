@@ -16,11 +16,11 @@ var connREQ = '{'+
 var connSTT = '{"ConnSTT" : {"Thanks" : "M8"}}';
 
 var controlMessage = '{"Control" : {"SomeSlider" : 76,"SomeButton" : "click"}}';
-var currMessage = "";
+var currMessage;
 
 var sensors = [];
 //will be sent to server in a certain period
-var dataMessage = "";
+var dataMessage = { "Control" : {} };   
 
 /**
  * @param {string} name name of the object
@@ -284,13 +284,10 @@ function process_control_group(groupElements, groupName)
 
 function sendData()
 {
-    if (dataMessage.search("Control") != -1)
-    {
-        console.log("sending data...");
-        console.log(dataMessage);
-        connection.send(dataMessage);
-        dataMessage = "";
-    }
+    console.log("sending data...");
+    console.log(dataMessage);
+    connection.send(JSON.stringify(dataMessage));
+    dataMessage = { "Control" : {}};
 }
 
 /**
@@ -304,16 +301,16 @@ function addToDataMessage(objectName, value)
     {
         if (value.search(".") != -1)
         {
-            dataMessage = '{ "Control" : {"'+objectName+'" : '+parseFloat(value)+' }}';
+            dataMessage.Control[objectName] = parseFloat(value);
         }
         else
         {
-            dataMessage = '{ "Control" : {"'+objectName+'" : '+parseInt(value)+' }}';
+            dataMessage.Control[objectName] = parseInt(value);
         }
     }
     else
     {
-        dataMessage = '{ "Control" : {"'+objectName+'" : "'+value+'" } }';   
+        dataMessage.Control[objectName] = "click";   
     }
     sendData();
 }
