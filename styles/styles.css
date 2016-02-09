@@ -63,7 +63,8 @@ nav {
     right: 0px;
     background-color: #F43254;
     text-align: right;
-    padding: 25px 60px 22px 74px;
+    padding: 25px 45px 22px 0px;
+    width: 150px;
     
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -82,8 +83,9 @@ nav {
     position: absolute;
     top: 50px;
     right: 0px;
-    padding: 20px 35px 25px 30px;
+    padding: 20px 45px 25px 0px;
     z-index: 150;
+    width: 150px;
 }
 
 #motorsPage {
