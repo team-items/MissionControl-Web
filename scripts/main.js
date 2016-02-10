@@ -76,9 +76,10 @@ function attachEvents()
     $("#motorsPage").on("click", ".updateButton", setValue);
     
     $(".sensorsCol").on("click", ".stopButton", changeChartState);
+    
     $('#showAllButton').on('click', function(){
-        $('.sensorsContainer').show("slow");
-        $('.motorsContainer').show("slow");
+        $('.sensorsContainer').fadeIn("slow");
+        $('.motorsContainer').fadeIn("slow");
         
         $("#dropDown").slideUp(400);
         setTimeout(function() {
@@ -87,10 +88,10 @@ function attachEvents()
         }, 290);
     });
     $('.graphHideButton').on('click', function(){
-        $(this).parent().parent().hide("slow");
+        $(this).parent().parent().fadeOut("slow");
     });
     $('.sliderHideButton').on('click', function(){
-        $(this).parent().parent().hide("slow");
+        $(this).parent().parent().fadeOut("slow");
     });
     
     $(".slider").on("mouseup", sendInputData);
