@@ -101,12 +101,12 @@ nav {
 }
     
 .mcButton {
-    border: 1px;
+    border: 2px;
     padding: 10px;
     float: right;
     margin-right: 20px;
-    background-color: #3f933f;
-    color: white;
+    background-color: #F43254;
+    color: #ffffff;
     opacity: 100%;
 
     -webkit-touch-callout: none; /* iOS Safari */
